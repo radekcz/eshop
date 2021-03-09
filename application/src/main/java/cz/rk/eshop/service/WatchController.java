@@ -1,7 +1,9 @@
 package cz.rk.eshop.service;
 
 import cz.rk.eshop.entity.Watch;
+import cz.rk.eshop.repository.WatchRepository;
 import org.springframework.web.bind.annotation.*;
+
 
 /**
  * Watch rest controller
@@ -9,9 +11,16 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class WatchController {
 
+//    private WatchRepository watchRepository;
+//
+//    WatchController(WatchRepository watchRepository) {
+//        this.watchRepository = watchRepository;
+//    }
+
     @PostMapping("/watches")
     Watch newWatch(Watch newWatch) {
-        // save to database - return repository.save(newWatch);
+        // save to database
+        //watchRepository.save(newWatch);
         return  null;
     }
 

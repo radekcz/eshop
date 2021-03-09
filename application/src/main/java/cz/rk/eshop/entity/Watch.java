@@ -1,8 +1,11 @@
 package cz.rk.eshop.entity;
 
+import javax.persistence.Entity;
+
 /**
  * Watch entity
  */
+@Entity
 public class Watch {
 
     private long id;
