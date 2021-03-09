@@ -1,6 +1,9 @@
 package cz.rk.eshop.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * Watch entity
@@ -8,22 +11,26 @@ import javax.persistence.Entity;
 @Entity
 public class Watch {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
     private String title;
     private long price;
     private String description;
 
 
-    public Watch(long id, String title){
+    public Watch(Long id, String title){
         this.id = id;
         this.title = title;
     }
 
-    public long getId() {
+    public Watch() {}
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

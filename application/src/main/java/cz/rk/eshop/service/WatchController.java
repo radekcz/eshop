@@ -2,6 +2,7 @@ package cz.rk.eshop.service;
 
 import cz.rk.eshop.entity.Watch;
 import cz.rk.eshop.repository.WatchRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -11,23 +12,24 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class WatchController {
 
-//    private WatchRepository watchRepository;
-//
-//    WatchController(WatchRepository watchRepository) {
-//        this.watchRepository = watchRepository;
-//    }
+    @Autowired
+    private WatchRepository watchRepository;
+
+    WatchController(WatchRepository watchRepository) {
+        this.watchRepository = watchRepository;
+    }
 
     @PostMapping("/watches")
-    Watch newWatch(Watch newWatch) {
+    Watch newWatch(@RequestBody Watch newWatch) {
+        // TODO: validate
         // save to database
-        //watchRepository.save(newWatch);
-        return  null;
+        watchRepository.save(newWatch);
+        return newWatch;
     }
 
     @GetMapping("/watches/{id}")
-    @ResponseBody
     Watch one(Long id) {
-        return new Watch(123, "Longines");
+        return new Watch(Long.valueOf(123), "Longines");
     }
 
 }
