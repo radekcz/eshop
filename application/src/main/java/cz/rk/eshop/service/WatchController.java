@@ -1,7 +1,9 @@
 package cz.rk.eshop.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.rk.eshop.entity.Watch;
 import cz.rk.eshop.repository.WatchRepository;
+import cz.rk.eshop.utils.WatchProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,21 +17,51 @@ public class WatchController {
     @Autowired
     private WatchRepository watchRepository;
 
+
     WatchController(WatchRepository watchRepository) {
         this.watchRepository = watchRepository;
     }
 
     @PostMapping("/watches")
-    Watch newWatch(@RequestBody Watch newWatch) {
-        // TODO: validate
+    Watch newWatch(@RequestBody String watchPayload) throws JsonProcessingException {
+        // process parameters
+        Watch newWatch = processParameters(watchPayload);
         // save to database
         watchRepository.save(newWatch);
         return newWatch;
     }
 
     @GetMapping("/watches/{id}")
-    Watch one(Long id) {
-        return new Watch(Long.valueOf(123), "Longines");
+    Watch one(@PathVariable Long id) {
+        return watchRepository.getOne(id);
     }
+
+    /**
+     * method processes input string parameters, default in JSON
+     *
+     * can be switch to process XML parameters
+     *
+     * @param watchPayload
+     * @return
+     */
+    private Watch processParameters(String watchPayload) throws JsonProcessingException {
+        return processProcessJSONParameters(watchPayload);
+    }
+
+    private Watch processProcessJSONParameters(String watchPayload) throws JsonProcessingException {
+        return WatchProcessor.processInputJSON(watchPayload);
+    }
+
+    //    @PostMapping("/watches")
+//    @ModelAttribute
+//    Watch newWatch(Watch newWatch) throws JsonProcessingException {
+//        // save to database
+//        watchRepository.save(newWatch);
+//        return newWatch;
+//    }
+//    @InitBinder
+//    public void initBinder(WebDataBinder binder) {
+//        binder.registerCustomEditor(Watch.class, new WatchEditor(objectMapper));
+//    }
 
 }
