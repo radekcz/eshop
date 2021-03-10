@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-
+/**
+ * Acceptance tests
+ */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ApplicationTests {
 
@@ -31,7 +33,7 @@ public class ApplicationTests {
         // create JSON input
         String jsonPayload = createJSONInput();
 
-        ResponseEntity<String> response = restTemplate.postForEntity(ENDPOINT, jsonPayload, String.class);
+        ResponseEntity<String> response = executePost(jsonPayload);
         Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK);
 
         JsonNode root = mapper.readTree(response.getBody());
@@ -41,17 +43,28 @@ public class ApplicationTests {
 
     @Test
     public void shouldReadWatch() throws Exception {
-        // TODO: first create new watch to test
+        // first create new watch to test
+        // create JSON input
+        String jsonPayload = createJSONInput();
+        // post
+        ResponseEntity<String> responseCreate = executePost(jsonPayload);
+        Assertions.assertEquals(responseCreate.getStatusCode(), HttpStatus.OK);
 
-        RestTemplate restTemplate = new RestTemplate();
+        JsonNode rootCreate = mapper.readTree(responseCreate.getBody());
+        JsonNode id = rootCreate.path("id");
+        Assertions.assertNotNull(id.asText());
 
-        ResponseEntity<String> response = restTemplate.getForEntity(ENDPOINT + "/1", String.class);
-        Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK);
+        // then try to get recently created watch
+        ResponseEntity<String> responseGet = restTemplate.getForEntity(ENDPOINT + "/"+id, String.class);
+        Assertions.assertEquals(responseGet.getStatusCode(), HttpStatus.OK);
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(response.getBody());
-        JsonNode name = root.path("title");
-        Assertions.assertNotNull(name.asText());
+        JsonNode rootGet = mapper.readTree(responseGet.getBody());
+        JsonNode fountain = rootGet.path("title");
+        Assertions.assertNotNull(fountain.asText());
+    }
+
+    private ResponseEntity<String> executePost(String jsonPayload) {
+        return restTemplate.postForEntity(ENDPOINT, jsonPayload, String.class);
     }
 
     private String createJSONInput() {
