@@ -17,6 +17,7 @@ public class Watch {
     private String title;
     private long price;
     private String description;
+    private String fountain;
 
 
     public Watch(Long id, String title){
@@ -56,5 +57,13 @@ public class Watch {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getFountain() {
+        return fountain;
+    }
+
+    public void setFountain(String fountain) {
+        this.fountain = fountain;
     }
 }

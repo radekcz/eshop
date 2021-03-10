@@ -46,6 +46,7 @@ public class WatchController {
                     watch.setTitle(newWatch.getTitle());
                     watch.setDescription(newWatch.getDescription());
                     watch.setPrice(newWatch.getPrice());
+                    watch.setFountain(newWatch.getFountain());
                     return watchRepository.save(watch);
                 })
                 .orElseGet(() -> {

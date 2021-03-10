@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.event.annotation.AfterTestExecution;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -62,6 +60,7 @@ public class ApplicationTests {
         node.put("title", "Casio");
         node.put("price", 120000);
         node.put("description", "Great watch!");
+        node.put("fountain", "R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=");
         return node.toString();
     }
 

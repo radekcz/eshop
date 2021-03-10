@@ -15,13 +15,15 @@ public class WatchProcessorTests {
         String title = "Longines";
         String description = "Great watch!";
         long price = 123987;
-        String jsonContent = "{\"title\":\"" + title + "\", \"description\":\"" + description + "\", \"price\":" + price + "}";
+        String fountain = "R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=";
+        String jsonContent = "{\"title\":\"" + title + "\", \"description\":\"" + description + "\", \"price\":" + price + ", \"fountain\":\"" + fountain + "\"}";
         Watch watch = WatchProcessor.processInputJSON(jsonContent);
 
         Assertions.assertNotNull(watch);
         Assertions.assertEquals(title, watch.getTitle());
         Assertions.assertEquals(description, watch.getDescription());
         Assertions.assertEquals(price, watch.getPrice());
+        Assertions.assertEquals(fountain, watch.getFountain());
     }
 
 //    @Test
