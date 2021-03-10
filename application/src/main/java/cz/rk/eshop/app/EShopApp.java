@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * E-Shop application - spring boot rest api
  */
 @SpringBootApplication
-@ComponentScan({"cz.rk.eshop.service"})
+@ComponentScan({"cz.rk.eshop.service", "cz.rk.eshop.exception"})
 @EntityScan("cz.rk.eshop.entity")
 @EnableJpaRepositories("cz.rk.eshop.repository")
 public class EShopApp {

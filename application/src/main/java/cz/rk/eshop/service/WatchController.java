@@ -2,6 +2,7 @@ package cz.rk.eshop.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.rk.eshop.entity.Watch;
+import cz.rk.eshop.exception.WatchNotFoundException;
 import cz.rk.eshop.repository.WatchRepository;
 import cz.rk.eshop.utils.WatchProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,8 @@ public class WatchController {
 
     @GetMapping("/watches/{id}")
     Watch one(@PathVariable Long id) {
-        return watchRepository.getOne(id);
+        return watchRepository.findById(id)
+                .orElseThrow(() -> new WatchNotFoundException(id));
     }
 
     /**
