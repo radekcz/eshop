@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
  * Acceptance tests
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ApplicationTests {
+public class ApplicationTest {
 
     private static final String ENDPOINT = "http://localhost:8080/watches";
 

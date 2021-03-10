@@ -2,6 +2,7 @@ package cz.rk.eshop.entity;
 
 import cz.rk.eshop.utils.WatchFountainConverter;
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 
 /**
@@ -14,7 +15,7 @@ public class Watch {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String title;
-    private long price;
+    private BigDecimal price;
     private String description;
 
     @Column(columnDefinition = "BLOB")
@@ -45,11 +46,11 @@ public class Watch {
         this.title = title;
     }
 
-    public long getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

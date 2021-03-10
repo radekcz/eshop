@@ -5,16 +5,18 @@ import cz.rk.eshop.entity.Watch;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 /**
  * Watch processor tests
  */
-public class WatchProcessorTests {
+public class WatchProcessorTest {
 
     @Test
     public void testProcessInputJSON() throws JsonProcessingException {
         String title = "Longines";
         String description = "Great watch!";
-        long price = 123987;
+        BigDecimal price = BigDecimal.valueOf(123987);
         String fountain = "R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=";
         String jsonContent = "{\"title\":\"" + title + "\", \"description\":\"" + description + "\", \"price\":" + price + ", \"fountain\":\"" + fountain + "\"}";
         Watch watch = WatchProcessor.processInputJSON(jsonContent);
