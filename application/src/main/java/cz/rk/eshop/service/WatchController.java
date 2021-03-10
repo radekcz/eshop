@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 /**
- * Watch rest api controller
+ * Watch controller - rest api
  */
 @RestController
 @RequestMapping("/eshop")

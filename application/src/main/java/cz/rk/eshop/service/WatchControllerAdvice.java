@@ -1,5 +1,6 @@
-package cz.rk.eshop.exception;
+package cz.rk.eshop.service;
 
+import cz.rk.eshop.exception.WatchNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 @ControllerAdvice
-public class WatchNotFoundAdvice {
+public class WatchControllerAdvice {
 
     @ResponseBody
     @ExceptionHandler(WatchNotFoundException.class)
