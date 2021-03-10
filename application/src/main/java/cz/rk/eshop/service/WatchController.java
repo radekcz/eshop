@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * Watch rest api controller
  */
 @RestController
+@RequestMapping("/eshop")
 public class WatchController {
 
     @Autowired

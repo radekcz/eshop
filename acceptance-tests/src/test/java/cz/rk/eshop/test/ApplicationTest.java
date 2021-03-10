@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ApplicationTest {
 
-    private static final String ENDPOINT = "http://localhost:8080/watches";
+    private static final String ENDPOINT = "http://localhost:8080/eshop/watches";
 
     private RestTemplate restTemplate;
     private ObjectMapper mapper;
