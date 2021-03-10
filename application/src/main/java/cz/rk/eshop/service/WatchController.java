@@ -76,13 +76,13 @@ public class WatchController {
     }
 
 
-    //    @PostMapping("/watches")
-//    @ModelAttribute
-//    Watch newWatch(Watch newWatch) throws JsonProcessingException {
+//    @PostMapping("/watches")
+//    Watch newWatch(@ResponseBody Watch newWatch) throws JsonProcessingException {
 //        // save to database
 //        watchRepository.save(newWatch);
 //        return newWatch;
 //    }
+//
 //    @InitBinder
 //    public void initBinder(WebDataBinder binder) {
 //        binder.registerCustomEditor(Watch.class, new WatchEditor(objectMapper));

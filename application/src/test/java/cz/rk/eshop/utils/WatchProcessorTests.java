@@ -14,14 +14,25 @@ public class WatchProcessorTests {
     public void testProcessInputJSON() throws JsonProcessingException {
         String title = "Longines";
         String description = "Great watch!";
-        String price = "123987";
+        long price = 123987;
         String jsonContent = "{\"title\":\"" + title + "\", \"description\":\"" + description + "\", \"price\":" + price + "}";
         Watch watch = WatchProcessor.processInputJSON(jsonContent);
 
         Assertions.assertNotNull(watch);
         Assertions.assertEquals(title, watch.getTitle());
         Assertions.assertEquals(description, watch.getDescription());
-        Assertions.assertEquals(price, watch.getPrice()+"");
+        Assertions.assertEquals(price, watch.getPrice());
     }
+
+//    @Test
+//    public void testProcessInputJSON2() throws JsonProcessingException {
+//        String jsonContent = "{\"title\":\"Longines\", \"description\":\"Great watch!\", \"price\":123987}";
+//        Watch watch = WatchProcessor.processInputJSON(jsonContent);
+//
+//        Assertions.assertNotNull(watch);
+//        Assertions.assertEquals("Longines", watch.getTitle());
+//        Assertions.assertEquals("Great watch!", watch.getDescription());
+//        Assertions.assertEquals(123987, watch.getPrice());
+//    }
 
 }
