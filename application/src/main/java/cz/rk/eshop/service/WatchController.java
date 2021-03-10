@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 /**
- * Watch rest controller
+ * Watch rest api controller
  */
 @RestController
 public class WatchController {
@@ -28,14 +28,35 @@ public class WatchController {
         // process parameters
         Watch newWatch = processParameters(watchPayload);
         // save to database
-        watchRepository.save(newWatch);
-        return newWatch;
+        return watchRepository.save(newWatch);
     }
 
     @GetMapping("/watches/{id}")
     Watch one(@PathVariable Long id) {
         return watchRepository.findById(id)
                 .orElseThrow(() -> new WatchNotFoundException(id));
+    }
+
+    @PutMapping("/watches/{id}")
+    Watch replaceWatch(@RequestBody String watchPayload, @PathVariable Long id) throws JsonProcessingException {
+        // process parameters
+        Watch newWatch = processParameters(watchPayload);
+        return watchRepository.findById(id)
+                .map(watch -> {
+                    watch.setTitle(newWatch.getTitle());
+                    watch.setDescription(newWatch.getDescription());
+                    watch.setPrice(newWatch.getPrice());
+                    return watchRepository.save(watch);
+                })
+                .orElseGet(() -> {
+                    newWatch.setId(id);
+                    return watchRepository.save(newWatch);
+                });
+    }
+
+    @DeleteMapping("/watches/{id}")
+    void deleteWatch(@PathVariable Long id) {
+        watchRepository.deleteById(id);
     }
 
     /**
@@ -53,6 +74,7 @@ public class WatchController {
     private Watch processProcessJSONParameters(String watchPayload) throws JsonProcessingException {
         return WatchProcessor.processInputJSON(watchPayload);
     }
+
 
     //    @PostMapping("/watches")
 //    @ModelAttribute
