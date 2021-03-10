@@ -1,9 +1,8 @@
 package cz.rk.eshop.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import cz.rk.eshop.utils.WatchConverter;
+import javax.persistence.*;
+
 
 /**
  * Watch entity
@@ -17,6 +16,9 @@ public class Watch {
     private String title;
     private long price;
     private String description;
+
+    @Column(columnDefinition = "BLOB")
+    @Convert(converter = WatchConverter.class)
     private String fountain;
 
 
