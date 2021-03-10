@@ -1,6 +1,6 @@
 package cz.rk.eshop.entity;
 
-import cz.rk.eshop.utils.WatchConverter;
+import cz.rk.eshop.utils.WatchFountainConverter;
 import javax.persistence.*;
 
 
@@ -18,7 +18,7 @@ public class Watch {
     private String description;
 
     @Column(columnDefinition = "BLOB")
-    @Convert(converter = WatchConverter.class)
+    @Convert(converter = WatchFountainConverter.class)
     private String fountain;
 
 

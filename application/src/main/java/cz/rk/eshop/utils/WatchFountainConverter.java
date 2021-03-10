@@ -6,7 +6,7 @@ import java.util.Base64;
 /**
  * Watch converter
  */
-public class WatchConverter implements AttributeConverter<String, byte[]> {
+public class WatchFountainConverter implements AttributeConverter<String, byte[]> {
 
     @Override
     public byte[] convertToDatabaseColumn(String string) {
