@@ -1,8 +1,7 @@
-package cz.rk.eshop.utils;
+package cz.rk.eshop.entity;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cz.rk.eshop.entity.Watch;
 import java.beans.PropertyEditorSupport;
 
 

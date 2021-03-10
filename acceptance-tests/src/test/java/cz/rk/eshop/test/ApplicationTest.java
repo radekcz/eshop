@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -64,7 +63,10 @@ public class ApplicationTest {
     }
 
     private ResponseEntity<String> executePost(String jsonPayload) {
-        return restTemplate.postForEntity(ENDPOINT, jsonPayload, String.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<String>(jsonPayload,headers);
+        return restTemplate.postForEntity(ENDPOINT, entity, String.class);
     }
 
     private String createJSONInput() {

@@ -2,6 +2,8 @@ package cz.rk.eshop.entity;
 
 import cz.rk.eshop.utils.WatchFountainConverter;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 
@@ -14,8 +16,14 @@ public class Watch {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+
+    @NotNull
+    @Size(min = 2)
     private String title;
+
+    @NotNull
     private BigDecimal price;
+
     private String description;
 
     @Column(columnDefinition = "BLOB")
