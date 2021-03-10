@@ -6,6 +6,7 @@ import cz.rk.eshop.exception.WatchNotFoundException;
 import cz.rk.eshop.repository.WatchRepository;
 import cz.rk.eshop.utils.WatchProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -24,6 +25,7 @@ public class WatchController {
     }
 
     @PostMapping("/watches")
+    @ResponseStatus(HttpStatus.CREATED)
     Watch newWatch(@RequestBody String watchPayload) throws JsonProcessingException {
         // process parameters
         Watch newWatch = processParameters(watchPayload);

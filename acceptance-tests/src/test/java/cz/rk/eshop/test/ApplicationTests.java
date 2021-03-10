@@ -34,7 +34,7 @@ public class ApplicationTests {
         String jsonPayload = createJSONInput();
 
         ResponseEntity<String> response = executePost(jsonPayload);
-        Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK);
+        Assertions.assertEquals(response.getStatusCode(), HttpStatus.CREATED);
 
         JsonNode root = mapper.readTree(response.getBody());
         JsonNode name = root.path("title");
@@ -48,7 +48,7 @@ public class ApplicationTests {
         String jsonPayload = createJSONInput();
         // post
         ResponseEntity<String> responseCreate = executePost(jsonPayload);
-        Assertions.assertEquals(responseCreate.getStatusCode(), HttpStatus.OK);
+        Assertions.assertEquals(responseCreate.getStatusCode(), HttpStatus.CREATED);
 
         JsonNode rootCreate = mapper.readTree(responseCreate.getBody());
         JsonNode id = rootCreate.path("id");
