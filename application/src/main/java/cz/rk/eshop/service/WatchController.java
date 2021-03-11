@@ -39,7 +39,7 @@ public class WatchController {
     }
 
     @PutMapping("/watches/{id}")
-    Watch replaceWatch(@RequestBody Watch updatedWatch, @PathVariable Long id) throws JsonProcessingException {
+    Watch replaceWatch(@Valid @RequestBody Watch updatedWatch, @PathVariable Long id) throws JsonProcessingException {
         return watchRepository.findById(id)
                 .map(watch -> {
                     watch.setTitle(updatedWatch.getTitle());

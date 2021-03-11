@@ -10,7 +10,12 @@ import cz.rk.eshop.entity.Watch;
 public class WatchProcessor {
 
     public static Watch processInputJSON(String watchPayload) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(watchPayload, Watch.class);
+        if (!watchPayload.isBlank()) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.readValue(watchPayload, Watch.class);
+        }
+        else {
+            return null;
+        }
     }
 }
