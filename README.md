@@ -7,8 +7,10 @@ This java project consists of 2 modules:
 - **acceptance-test** - module contains independent acceptance tests for this REST API
 
 
-#### Running
+#### Running (application)
 - For running the application from an IDE, you can run application as a simple Java application - just run the main method of class `EshopApp`.
+- Or you can run this application over maven command: `mvn spring-boot:run`
+
 
 #### Testing
 
