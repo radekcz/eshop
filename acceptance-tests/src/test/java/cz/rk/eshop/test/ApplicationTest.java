@@ -8,7 +8,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.http.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
 
 /**
  * Acceptance tests
@@ -30,10 +32,10 @@ public class ApplicationTest {
     @Test
     public void shouldCreateNewWatch() throws Exception {
         // create JSON input
-        String jsonPayload = createJSONInput();
+        String jsonPayload = createJSONInputCorrect();
 
         ResponseEntity<String> response = executePost(jsonPayload);
-        Assertions.assertEquals(response.getStatusCode(), HttpStatus.CREATED);
+        Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
         JsonNode root = mapper.readTree(response.getBody());
         JsonNode name = root.path("title");
@@ -41,13 +43,48 @@ public class ApplicationTest {
     }
 
     @Test
+    public void shouldCreateNewWatch_withoutFountain() throws Exception {
+        // create JSON input
+        String jsonPayload = createJSONInputCorrectWithoutFountain();
+
+        ResponseEntity<String> response = executePost(jsonPayload);
+        Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+
+        JsonNode root = mapper.readTree(response.getBody());
+        JsonNode name = root.path("title");
+        Assertions.assertNotNull(name.asText());
+    }
+
+    @Test
+    public void shouldNotCreateNewWatch_emptyTitle() throws Exception {
+        // create JSON input with empty title
+        String jsonPayload = createJSONInputWithEmptyTitle();
+
+        HttpClientErrorException httpClientErrorException = Assertions.assertThrows(HttpClientErrorException.class, () -> {
+            executePost(jsonPayload);
+        });
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, httpClientErrorException.getStatusCode());
+    }
+
+    @Test
+    public void shouldNotCreateNewWatch_badFountain() throws Exception {
+        // create JSON input with bad parameter "fountain"
+        String jsonPayload = createJSONInputWithBadFountain();
+
+        HttpClientErrorException httpClientErrorException = Assertions.assertThrows(HttpClientErrorException.class, () -> {
+            executePost(jsonPayload);
+        });
+        Assertions.assertEquals(HttpStatus.UNPROCESSABLE_ENTITY, httpClientErrorException.getStatusCode());
+    }
+
+    @Test
     public void shouldReadWatch() throws Exception {
         // first create new watch to test
         // create JSON input
-        String jsonPayload = createJSONInput();
+        String jsonPayload = createJSONInputCorrect();
         // post
         ResponseEntity<String> responseCreate = executePost(jsonPayload);
-        Assertions.assertEquals(responseCreate.getStatusCode(), HttpStatus.CREATED);
+        Assertions.assertEquals(HttpStatus.CREATED, responseCreate.getStatusCode());
 
         JsonNode rootCreate = mapper.readTree(responseCreate.getBody());
         JsonNode id = rootCreate.path("id");
@@ -55,7 +92,7 @@ public class ApplicationTest {
 
         // then try to get recently created watch
         ResponseEntity<String> responseGet = restTemplate.getForEntity(ENDPOINT + "/"+id, String.class);
-        Assertions.assertEquals(responseGet.getStatusCode(), HttpStatus.OK);
+        Assertions.assertEquals(HttpStatus.OK, responseGet.getStatusCode());
 
         JsonNode rootGet = mapper.readTree(responseGet.getBody());
         JsonNode fountain = rootGet.path("title");
@@ -69,14 +106,31 @@ public class ApplicationTest {
         return restTemplate.postForEntity(ENDPOINT, entity, String.class);
     }
 
-    private String createJSONInput() {
+    private String createJSONInput(String title, String fountain, boolean appendFountain) {
         // create a JSON object
         ObjectNode node = mapper.createObjectNode();
-        node.put("title", "Casio");
+        node.put("title", title);
         node.put("price", 120000);
         node.put("description", "Great watch!");
-        node.put("fountain", "R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=");
+        if (appendFountain)
+            node.put("fountain", fountain);
         return node.toString();
+    }
+
+    private String createJSONInputCorrect(){
+        return createJSONInput("Casio", "R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=", true);
+    }
+
+    private String createJSONInputCorrectWithoutFountain(){
+        return createJSONInput("Casio", "R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=", false);
+    }
+
+    private String createJSONInputWithBadFountain(){
+        return createJSONInput("Casio", "R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=a", true);
+    }
+
+    private String createJSONInputWithEmptyTitle(){
+        return createJSONInput("", "R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=", true);
     }
 
 }

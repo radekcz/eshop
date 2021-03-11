@@ -1,6 +1,8 @@
 package cz.rk.eshop.exception;
 
-
+/**
+ * Watch not found exception
+ */
 public class WatchNotFoundException extends RuntimeException {
 
     public WatchNotFoundException(Long id) {

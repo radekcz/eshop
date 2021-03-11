@@ -1,4 +1,4 @@
-package cz.rk.eshop.service;
+package cz.rk.eshop.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.rk.eshop.entity.Watch;
@@ -27,7 +27,7 @@ public class WatchController {
 
     @PostMapping("/watches")
     @ResponseStatus(HttpStatus.CREATED)
-    Watch newWatch(@Valid @RequestBody Watch newWatch) throws JsonProcessingException {
+    Watch newWatch(@Valid @RequestBody Watch newWatch) {
         // save to database
         return watchRepository.save(newWatch);
     }
@@ -58,11 +58,5 @@ public class WatchController {
     void deleteWatch(@PathVariable Long id) {
         watchRepository.deleteById(id);
     }
-
-
-//    @InitBinder("watch")
-//    public void initBinder(WebDataBinder binder) {
-//        binder.registerCustomEditor(Watch.class, new WatchEditor());
-//    }
 
 }
