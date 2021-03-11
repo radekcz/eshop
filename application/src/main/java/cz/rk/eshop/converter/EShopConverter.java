@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class EShopConverter {
 
     /**
-     * There can be easily added new custom converter (e.g. from our particular format)
+     * New custom converter can be easily added here (e.g. from our particular format).
      */
 //    @Bean
 //    public HttpMessageConverters customConverters() {
