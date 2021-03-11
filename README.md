@@ -3,6 +3,7 @@
 This java project consists of 2 modules:
 
 - **application** - proper REST API based on Spring Boot built by Maven
+    - API accepts JSON or XML input data.
 - **acceptance-test** - module contains independent acceptance tests for this REST API
 
 
