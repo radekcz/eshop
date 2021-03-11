@@ -38,8 +38,12 @@ public class ApplicationTest {
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
         JsonNode root = mapper.readTree(response.getBody());
+
         JsonNode name = root.path("title");
         Assertions.assertNotNull(name.asText());
+
+        JsonNode fountain = root.path("fountain");
+        Assertions.assertNotNull(fountain.asText());
     }
 
     @Test
@@ -51,8 +55,9 @@ public class ApplicationTest {
         Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
         JsonNode root = mapper.readTree(response.getBody());
-        JsonNode name = root.path("title");
-        Assertions.assertNotNull(name.asText());
+
+        JsonNode fountain = root.path("fountain");
+        Assertions.assertTrue(fountain.isNull());
     }
 
     @Test
@@ -122,15 +127,15 @@ public class ApplicationTest {
     }
 
     private String createJSONInputCorrectWithoutFountain(){
-        return createJSONInput("Casio", "R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=", false);
+        return createJSONInput("Longines", "", false);
     }
 
     private String createJSONInputWithBadFountain(){
-        return createJSONInput("Casio", "R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=a", true);
+        return createJSONInput("Prim", "R=a", true);
     }
 
     private String createJSONInputWithEmptyTitle(){
-        return createJSONInput("", "R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=", true);
+        return createJSONInput("", "YWhvag==", true);
     }
 
 }
