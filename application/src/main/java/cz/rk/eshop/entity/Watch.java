@@ -21,11 +21,11 @@ public class Watch {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @NotNull(message = "\"Title\" must be filled in.")
+    @NotNull(message = "Title must be filled in.")
     @Size(min = 2)
     private String title;
 
-    @NotNull(message = "\"Price\" must be filled in.")
+    @NotNull(message = "Price must be filled in.")
     private BigDecimal price;
 
     private String description;
