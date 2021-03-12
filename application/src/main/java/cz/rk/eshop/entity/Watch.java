@@ -39,4 +39,15 @@ public class Watch {
         this.id = id;
         this.title = title;
     }
+
+    @Override
+    public String toString() {
+        return "Watch [" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", fountain='" + fountain + '\'' +
+                ']';
+    }
 }
