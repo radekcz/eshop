@@ -1,6 +1,6 @@
 package cz.rk.eshop.utils;
 
-import cz.rk.eshop.exception.WatchBadParameterException;
+import cz.rk.eshop.exception.WatchBadValueParameterException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ public class WatchFountainConverterTest {
     public void testConvertBase46ByteArray_badInput() {
         String fountain = "R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=a";
 
-        Assertions.assertThrows(WatchBadParameterException.class, () -> {
+        Assertions.assertThrows(WatchBadValueParameterException.class, () -> {
             watchFountainConverter.convertToDatabaseColumn(fountain);
         });
     }

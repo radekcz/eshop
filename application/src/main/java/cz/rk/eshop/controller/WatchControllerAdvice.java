@@ -1,6 +1,6 @@
 package cz.rk.eshop.controller;
 
-import cz.rk.eshop.exception.WatchBadParameterException;
+import cz.rk.eshop.exception.WatchBadValueParameterException;
 import cz.rk.eshop.exception.WatchNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,9 +21,9 @@ public class WatchControllerAdvice {
 
 
     @ResponseBody
-    @ExceptionHandler(WatchBadParameterException.class)
+    @ExceptionHandler(WatchBadValueParameterException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    String watchBadParameterHandler(WatchBadParameterException e) {
+    String watchBadValueParameterHandler(WatchBadValueParameterException e) {
         return e.getMessage();
     }
 

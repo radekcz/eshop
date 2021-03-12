@@ -3,9 +3,9 @@ package cz.rk.eshop.exception;
 /**
  * Wath bad parameter exception
  */
-public class WatchBadParameterException extends RuntimeException {
+public class WatchBadValueParameterException extends RuntimeException {
 
-    public WatchBadParameterException() {
+    public WatchBadValueParameterException() {
         super("Watch contains bad value of parameter and could not be processed.");
     }
 }
