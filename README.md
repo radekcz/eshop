@@ -2,9 +2,9 @@
 
 This java project consists of 2 modules:
 
-- **application** - proper REST API based on Spring Boot built by Maven
+- **application** - proper REST API based on Spring Boot framework built by Maven
     - API accepts JSON or XML input data.
-    - Another input data converter can be added to class `EShopConverter` (there is an example of a converter) and application is ready to use this this new data format.
+    - Another input data converter can be easily added to class `EShopConverter` (there is an example of a converter) and application is ready to use this this new data format.
 - **acceptance-test** - module contains independent acceptance tests for this REST API based on `RestTemplate` framework.
 
 
@@ -16,7 +16,7 @@ This java project consists of 2 modules:
 #### Testing
 
 ##### JUnit testing
-JUnit tests are part of `application`. You can use `mvn test` to run unit test in Maven.
+JUnit tests are part of `application`. You can use `mvn test` to run JUnit tests over Maven.
 
 ##### Acceptance tests
 As above, after running `application`, you can use `mvn test` on module **`acceptance-test`** to make run of acceptance tests independently of application.
