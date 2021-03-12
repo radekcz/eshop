@@ -4,8 +4,8 @@ This java project consists of 2 modules:
 
 - **application** - proper REST API based on Spring Boot built by Maven
     - API accepts JSON or XML input data.
-    - Another input data converter can be added to class `EShopConverter` where is an example of a converter.
-- **acceptance-test** - module contains independent acceptance tests for this REST API
+    - Another input data converter can be added to class `EShopConverter` (there is an example of a converter) and application is ready to use this this new data format.
+- **acceptance-test** - module contains independent acceptance tests for this REST API based on `RestTemplate` framework.
 
 
 #### Running (application)
