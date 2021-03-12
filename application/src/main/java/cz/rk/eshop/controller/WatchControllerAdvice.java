@@ -15,7 +15,7 @@ public class WatchControllerAdvice {
     @ResponseBody
     @ExceptionHandler(WatchNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String watchNotFoundHandler(WatchNotFoundException e) {
+    String handleWatchNotFound(WatchNotFoundException e) {
         return e.getMessage();
     }
 
@@ -23,7 +23,7 @@ public class WatchControllerAdvice {
     @ResponseBody
     @ExceptionHandler(WatchBadValueParameterException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    String watchBadValueParameterHandler(WatchBadValueParameterException e) {
+    String handleWatchBadValueParameter(WatchBadValueParameterException e) {
         return e.getMessage();
     }
 
