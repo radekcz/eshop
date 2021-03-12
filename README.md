@@ -2,11 +2,11 @@
 
 This java project consists of 2 modules:
 
-- **application** - proper REST API based on Spring Boot framework built by Maven
+- ***application*** - proper REST API based on Spring Boot framework built by Maven
     - API accepts JSON or XML input data.
     - Another input data converter can be easily added to class `EShopConverter` (there is an example of a converter) and application is ready to use this this new data format.
-    - Application uses H2 in-memory database engine.
-- **acceptance-test** - module contains independent acceptance tests for this REST API based on `RestTemplate` framework.
+    - Application uses H2 in-memory database engine for storing data.
+- ***acceptance-test*** - module contains independent acceptance tests for this REST API based on `RestTemplate` framework.
 
 
 #### Running (application module)
