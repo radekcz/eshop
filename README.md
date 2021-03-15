@@ -11,7 +11,7 @@ This java project consists of 2 modules:
 
 
 #### Documentation
-You can find documentation to this REST API by visiting http://localhost:8080/eshop/swagger-ui/
+You can find documentation of this REST API by visiting http://localhost:8080/eshop/swagger-ui/ so `Swagger` is used for document this project.
 
 
 #### Running (application module)
