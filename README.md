@@ -10,6 +10,10 @@ This java project consists of 2 modules:
 - ***acceptance-test*** - module contains independent acceptance tests for this REST API based on `RestTemplate` framework.
 
 
+#### Documentation
+You can find documentation to this REST API by visiting http://localhost:8080/eshop/swagger-ui/
+
+
 #### Running (application module)
 - For running the application from an IDE, you can run application as a simple Java application - just run the main method of class `EshopApp`.
 - Or you can run this `application` over maven command: `mvn spring-boot:run`
