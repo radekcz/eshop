@@ -16,7 +16,7 @@ import javax.validation.Valid;
  * Watch controller - rest api
  */
 @RestController
-@RequestMapping("/eshop/v1")
+@RequestMapping("/v1/watches")
 public class WatchController {
 
     @Autowired
@@ -33,7 +33,7 @@ public class WatchController {
         this.watchRepository = watchRepository;
     }
 
-    @PostMapping("/watches")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     Watch newWatch(@Valid @RequestBody Watch newWatch) {
         // log
@@ -42,7 +42,7 @@ public class WatchController {
         return watchRepository.save(newWatch);
     }
 
-    @GetMapping("/watches/{id}")
+    @GetMapping("/{id}")
     Watch one(@PathVariable Long id) {
         // log
         logger.info("Get request; parameters: " + id);
@@ -50,7 +50,7 @@ public class WatchController {
                 .orElseThrow(() -> new WatchNotFoundException(id));
     }
 
-    @PutMapping("/watches/{id}")
+    @PutMapping("/{id}")
     Watch replaceWatch(@Valid @RequestBody Watch updatedWatch, @PathVariable Long id) throws JsonProcessingException {
         // log
         logger.info("Put request; parameters: " + updatedWatch + "; " + id);
@@ -68,7 +68,7 @@ public class WatchController {
                 });
     }
 
-    @DeleteMapping("/watches/{id}")
+    @DeleteMapping("/{id}")
     void deleteWatch(@PathVariable Long id) {
         // log
         logger.info("Delete request; parameters: " + id);

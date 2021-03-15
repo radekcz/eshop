@@ -1,3 +1,6 @@
+server:
+  servlet:
+    context-path: /eshop
 spring:
   datasource:
     driverClassName: org.h2.Driver
