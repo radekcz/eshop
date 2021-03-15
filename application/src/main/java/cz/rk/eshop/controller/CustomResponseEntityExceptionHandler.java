@@ -3,14 +3,15 @@ package cz.rk.eshop.controller;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import java.util.ArrayList;
+import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -19,16 +20,44 @@ import java.util.List;
 @ControllerAdvice
 public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
+    private static final String FIELD_SEPARATOR = ": ";
+    private static final String PATH = "path";
+    private static final String ERRORS = "error";
+    private static final String STATUS = "status";
+    private static final String MESSAGE = "message";
+    private static final String TIMESTAMP = "timestamp";
+    private static final String TYPE = "type";
+
+
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        List<String> errors = new ArrayList<>();
-        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-            errors.add(error.getField() + ": " + error.getDefaultMessage());
-        }
-        for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
-            errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
-        }
-        return handleExceptionInternal(ex, errors, headers, HttpStatus.BAD_REQUEST, request);
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        List<String> validationErrors = exception.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(error -> error.getField() + FIELD_SEPARATOR + error.getDefaultMessage())
+                .collect(Collectors.toList());
+        return createExceptionResponseEntity(exception, status, request, validationErrors);
+    }
+
+
+    /**
+     * create exception response entity
+     * @param exception
+     * @param status
+     * @param request
+     * @param errors
+     * @return
+     */
+    private ResponseEntity<Object> createExceptionResponseEntity(final Exception exception, final HttpStatus status, final WebRequest request, final List<String> errors) {
+        final Map<String, Object> body = new HashMap<>();
+        final String path = request.getDescription(false);
+        body.put(TIMESTAMP, Instant.now());
+        body.put(STATUS, status.value());
+        body.put(TYPE, exception.getClass().getSimpleName());
+        body.put(ERRORS, errors);
+        body.put(PATH, path);
+        body.put(MESSAGE, status.getReasonPhrase());
+        return new ResponseEntity<>(body, status);
     }
 
 }

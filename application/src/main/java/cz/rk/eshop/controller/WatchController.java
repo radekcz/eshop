@@ -16,7 +16,7 @@ import javax.validation.Valid;
  * Watch controller - rest api
  */
 @RestController
-@RequestMapping("/eshop")
+@RequestMapping("/eshop/v1")
 public class WatchController {
 
     @Autowired
