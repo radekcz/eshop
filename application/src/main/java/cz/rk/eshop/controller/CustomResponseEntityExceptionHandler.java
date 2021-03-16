@@ -32,18 +32,38 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     private static final String TYPE = "type";
 
 
+    /**
+     * handle own WatchNotFoundException
+     * @param e
+     * @param request
+     * @return
+     */
     @ExceptionHandler(WatchNotFoundException.class)
     ResponseEntity<Object> handleWatchNotFound(WatchNotFoundException e, WebRequest request) {
         return createExceptionResponseEntity(e, HttpStatus.NOT_FOUND, request, List.of(e.getMessage()));
     }
 
 
+    /**
+     * handle own WatchBadValueParameterException
+     * @param e
+     * @param request
+     * @return
+     */
     @ExceptionHandler(WatchBadValueParameterException.class)
     ResponseEntity<Object> handleWatchBadValueParameter(WatchBadValueParameterException e, WebRequest request) {
         return createExceptionResponseEntity(e, HttpStatus.UNPROCESSABLE_ENTITY, request, List.of(e.getMessage()));
     }
 
 
+    /**
+     * handle spring standard MethodArgumentNotValidException
+     * @param exception
+     * @param headers
+     * @param status
+     * @param request
+     * @return
+     */
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> validationErrors = exception.getBindingResult()
