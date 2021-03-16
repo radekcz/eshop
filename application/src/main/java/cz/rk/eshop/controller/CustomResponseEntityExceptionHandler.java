@@ -1,10 +1,13 @@
 package cz.rk.eshop.controller;
 
+import cz.rk.eshop.exception.WatchBadValueParameterException;
+import cz.rk.eshop.exception.WatchNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import java.time.Instant;
@@ -27,6 +30,18 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     private static final String MESSAGE = "message";
     private static final String TIMESTAMP = "timestamp";
     private static final String TYPE = "type";
+
+
+    @ExceptionHandler(WatchNotFoundException.class)
+    ResponseEntity<Object> handleWatchNotFound(WatchNotFoundException e, WebRequest request) {
+        return createExceptionResponseEntity(e, HttpStatus.NOT_FOUND, request, List.of(e.getMessage()));
+    }
+
+
+    @ExceptionHandler(WatchBadValueParameterException.class)
+    ResponseEntity<Object> handleWatchBadValueParameter(WatchBadValueParameterException e, WebRequest request) {
+        return createExceptionResponseEntity(e, HttpStatus.UNPROCESSABLE_ENTITY, request, List.of(e.getMessage()));
+    }
 
 
     @Override
